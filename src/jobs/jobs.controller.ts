@@ -6,6 +6,9 @@ import {
   Delete,
   Param,
   Body,
+  HttpException,
+  HttpStatus,
+  UseFilters,
 } from '@nestjs/common';
 import { JobsService } from './jobs.service';
 import { JobDTO } from './dtos/job.dto';
@@ -16,7 +19,18 @@ export class JobsController {
   constructor(private readonly jobService: JobsService) {}
   @Get(':id')
   find(@Param('id') id): Promise<Job> {
-    return this.jobService.find(id);
+    return this.jobService
+      .find(id)
+      .then((result) => {
+        if (result) {
+          return result;
+        } else {
+          throw new HttpException('Job Not Found', HttpStatus.NOT_FOUND);
+        }
+      })
+      .catch(() => {
+        throw new HttpException('Job Not Found', HttpStatus.NOT_FOUND);
+      });
   }
   @Get()
   findAll(): Promise<Job[]> {
