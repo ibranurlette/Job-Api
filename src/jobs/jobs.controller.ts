@@ -8,10 +8,14 @@ import {
   Body,
   HttpException,
   HttpStatus,
+  UseFilters,
 } from '@nestjs/common';
 import { JobsService } from './jobs.service';
 import { JobDTO } from './dtos/job.dto';
 import { Job } from './interfaces/job.interface';
+import { JobData } from '../decorators/jobdata.decorator';
+import { ValidationExceptionFilter } from '../filters/validation-exception.filter';
+import { ValidationPipe } from '../pipes/validation';
 
 @Controller('jobs')
 export class JobsController {
@@ -37,9 +41,10 @@ export class JobsController {
   }
 
   @Post()
+  // @UseFilters(new ValidationExceptionFilter())
   create(@Body() job: JobDTO): Promise<Job> {
     return this.jobService.create(job);
-  }
+  } 
   @Put(':id')
   update(@Param('id') id, @Body() job: JobDTO): Promise<Job> {
     return this.jobService.update(id, job);
