@@ -8,7 +8,6 @@ import {
   Body,
   HttpException,
   HttpStatus,
-  UseFilters,
 } from '@nestjs/common';
 import { JobsService } from './jobs.service';
 import { JobDTO } from './dtos/job.dto';
