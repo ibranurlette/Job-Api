@@ -28,7 +28,9 @@
     "cache-manager": "^3.4.0",
     "class-transformer": "^0.3.2",
     "class-validator": "^0.13.1",
+    "hbs": "^4.1.1",
     "mongoose": "^5.11.15",
+    "pug": "^3.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3"

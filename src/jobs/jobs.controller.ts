@@ -13,6 +13,7 @@ import {
   CacheTTL,
   UseInterceptors,
   CacheInterceptor,
+  Render,
 } from '@nestjs/common';
 import { JobsService } from './jobs.service';
 import { JobDTO } from './dtos/job.dto';
@@ -27,11 +28,19 @@ import { BenchmarkInterceptor } from '../interceptors/benchmark.interceptor';
 export class JobsController {
   constructor(private readonly jobService: JobsService) {}
   @Get()
-  @CacheKey('allJobs')
-  @CacheTTL(15)
-  findAll(): Promise<Job[]> {
-    return this.jobService.findAll();
+  @Render('jobs/index')
+  root() {
+    return this.jobService
+      .findAll()
+      .then((result) => (result ? { jobs: result } : { jobs: [] }));
   }
+
+  // @Get()
+  // @CacheKey('allJobs')
+  // @CacheTTL(15)
+  // findAll(): Promise<Job[]> {
+  //   return this.jobService.findAll();
+  // }
 
   @Get(':id')
   @CacheTTL(30)
