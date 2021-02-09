@@ -15,8 +15,8 @@ async function bootstrap() {
 
   app.useStaticAssets(join(__dirname, '..', 'public'));
   app.setBaseViewsDir(join(__dirname, '..', 'views'));
-  app.setViewEngine('pug');
-  // app.setViewEngine('hbs');
+  // app.setViewEngine('pug');
+  app.setViewEngine('hbs');
   await app.listen(3000);
 }
 bootstrap();
